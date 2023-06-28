@@ -6,12 +6,12 @@ from langchain.document_loaders import DirectoryLoader
 from langchain.chains import RetrievalQA
 import langchain
 
-langchain.debug = True
+# langchain.debug = True
 #import nltk
 # nltk.download('punkt')
 
 # 加载文件夹中的所有txt类型的文件
-loader = DirectoryLoader('/Users/spli/Desktop/workspace@self/LangChain/document', glob='create table sql.txt')
+loader = DirectoryLoader('/Users/spli/Desktop/workspace@self/LangChain-demo/document', glob='create table sql.txt')
 # 将数据转成 document 对象，每个文件会作为一个 document
 documents = loader.load()
 
@@ -27,9 +27,10 @@ docsearch = Chroma.from_documents(split_docs, embeddings)
 
 # 创建问答对象
 qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch, return_source_documents=True)
+
 # 进行问答
 # result = qa({"query": "实例表的表名叫什么"})
-# result = qa({"query": "实例表和任务表如何关联？给我个 sql demo"})
+result = qa({"query": "实例表和任务表如何关联？给我个 sql demo"})
+# result = qa({"query": "实例表有多少个实例？"})
 
-result = qa({"query": "实例表有多少个实例？"})
 print(result)
