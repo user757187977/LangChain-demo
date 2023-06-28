@@ -13,7 +13,7 @@ langchain.debug = True
 # nltk.download('punkt')
 
 # 加载文件夹中的所有txt类型的文件
-loader = DirectoryLoader('/Users/spli/Desktop/workspace@self/LangChain/document', glob='create table sql.txt')
+loader = DirectoryLoader('/Users/spli/Desktop/workspace@self/LangChain-demo/document', glob='create table sql.txt')
 # 将数据转成 document 对象，每个文件会作为一个 document
 documents = loader.load()
 
