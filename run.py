@@ -5,10 +5,13 @@ from langchain import OpenAI,VectorDBQA
 from langchain.document_loaders import DirectoryLoader
 from langchain.chains import RetrievalQA
 import langchain
+import os
 
 # langchain.debug = True
 #import nltk
 # nltk.download('punkt')
+
+# os.environ["OPENAI_API_KEY"] = "***"
 
 # 加载文件夹中的所有txt类型的文件
 loader = DirectoryLoader('/Users/spli/Desktop/workspace@self/LangChain-demo/document', glob='create table sql.txt')
@@ -28,9 +31,16 @@ docsearch = Chroma.from_documents(split_docs, embeddings)
 # 创建问答对象
 qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch, return_source_documents=True)
 
-# 进行问答
-# result = qa({"query": "实例表的表名叫什么"})
-result = qa({"query": "实例表和任务表如何关联？给我个 sql demo"})
-# result = qa({"query": "实例表有多少个实例？"})
 
+# 进行问答
+result = qa({"query": "实例表的表名叫什么"})
 print(result)
+
+# result = qa({"query": "实例表和任务表如何关联？给我个 sql demo"})
+# print(result)
+
+# result = qa({"query": "实例表有多少个实例？"})
+# print(result)
+
+# result = qa({"query": "给我生成个 sql, 看看教育昨天的 PV 是多少"})
+# print(result)
